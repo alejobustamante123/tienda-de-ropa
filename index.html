@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlejoStore - Ropa Virtual Masculina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #121212;
+            --secondary-color: #1e1e1e;
+            --accent-color: #d4af37;
+            --text-color: #e0e0e0;
+            --light-gray: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(30, 30, 30, 0.8) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(30, 30, 30, 0.8) 0%, transparent 20%),
+                linear-gradient(135deg, transparent 48%, rgba(212, 175, 55, 0.1) 49%, rgba(212, 175, 55, 0.1) 51%, transparent 52%),
+                linear-gradient(45deg, transparent 48%, rgba(212, 175, 55, 0.1) 49%, rgba(212, 175, 55, 0.1) 51%, transparent 52%);
+            background-size: 200px 200px;
+            z-index: -1;
+        }
+
+        header {
+            background-color: rgba(18, 18, 18, 0.9);
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--accent-color);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--accent-color), #f5f5f5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+
+        .logo-icon {
+            color: var(--accent-color);
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        nav a:hover {
+            color: var(--accent-color);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .user-actions {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .user-actions button {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .user-actions button:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .cart-btn {
+            position: relative;
+        }
+
+        .hero {
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            color: #b0b0b0;
+        }
+
+        .cta-button {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            background-color: #e6c34d;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .section-title {
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+
+        .section-title h3 {
+            font-size: 2rem;
+            display: inline-block;
+            padding: 0 1rem;
+            background-color: var(--primary-color);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background-color: var(--light-gray);
+            z-index: 0;
+        }
+
+        .products {
+            padding: 0 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .product-card {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            border: 1px solid var(--light-gray);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            z-index: 1;
+        }
+
+        .product-image {
+            height: 300px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-info p {
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1rem;
+        }
+
+        .price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .original-price {
+            text-decoration: line-through;
+            color: #777;
+            font-size: 0.9rem;
+            margin-left: 0.5rem;
+        }
+
+        .add-to-cart {
+            background-color: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+        }
+
+        footer {
+            background-color: var(--secondary-color);
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)));
+            gap: 2rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-color);
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column ul li a {
+            color: #b0b0b0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: #b0b0b0;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--light-gray);
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        /* Modal de carrito */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: var(--secondary-color);
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            transition: right 0.3s;
+            z-index: 1000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .cart-modal.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .cart-header h3 {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-cart:hover {
+            color: var(--accent-color);
+        }
+
+        .cart-items {
+            margin-bottom: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-details h4 {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            background-color: var(--light-gray);
+            border: none;
+            color: var(--text-color);
+            width: 25px;
+            height: 25px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #b0b0b0;
+            font-size: 0.8rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .remove-item:hover {
+            color: #ff4d4d;
+        }
+
+        .cart-total {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1.5rem;
+        }
+
+        .checkout-btn:hover {
+            background-color: #e6c34d;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            }
+
+            .cart-modal {
+                width: 100%;
+                right: -100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-crown logo-icon"></i>
+            <h1>AlejoStore</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Inicio</a></li>
+                <li><a href="#">Novedades</a></li>
+                <li><a href="#">Ropa</a></li>
+                <li><a href="#">Accesorios</a></li>
+                <li><a href="#">Ofertas</a></li>
+            </ul>
+        </nav>
+        <div class="user-actions">
+            <button class="search-btn"><i class="fas fa-search"></i></button>
+            <button class="user-btn"><i class="fas fa-user"></i></button>
+            <button class="cart-btn">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count">0</span>
+            </button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>ESTILO MASCULINO PREMIUM</h2>
+        <p>Descubre nuestra exclusiva colección de ropa virtual diseñada para hombres que buscan elegancia, comodidad y sofisticación en cada detalle.</p>
+        <button class="cta-button">Explorar Colección</button>
+    </section>
+
+    <div class="section-title">
+        <h3>Novedades</h3>
+    </div>
+
+    <section class="products">
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-badge">Nuevo</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Chaqueta de cuero">
+                </div>
+                <div class="product-info">
+                    <h4>Chaqueta de Cuero Premium</h4>
+                    <p>Chaqueta de cuero genuino con corte moderno y detalles en costuras contrastantes.</p>
+                    <div class="product-price">
+                        <div class="price">$299.99 <span class="original-price">$399.99</span></div>
+                        <button class="add-to-cart">Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1529374255404-311a2a4f1fd9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Sudadera negra">
+                </div>
+                <div class="product-info">
+                    <h4>Sudadera Oversized Negra</h4>
+                    <p>Sudadera de algodón orgánico con corte oversized y bordado discreto en el pecho.</p>
+                    <div class="product-price">
+                        <div class="price">$89.99</div>
+                        <button class="add-to-cart">Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge">25% OFF</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1527719327859-c6ce80353573?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Camisa blanca">
+                </div>
+                <div class="product-info">
+                    <h4>Camisa Slim Fit Blanca</h4>
+                    <p>Camisa de algodón egipcio con corte slim fit y botones de nácar genuino.</p>
+                    <div class="product-price">
+                        <div class="price">$59.99 <span class="original-price">$79.99</span></div>
+                        <button class="add-to-cart">Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1473966968600-fa801b869a1a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Pantalones chinos">
+                </div>
+                <div class="product-info">
+                    <h4>Pantalones Chinos Beige</h4>
+                    <p>Pantalones chinos de tejido resistente con pliegues discretos y ajuste perfecto.</p>
+                    <div class="product-price">
+                        <div class="price">$69.99</div>
+                        <button class="add-to-cart">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-title">
+        <h3>Lo más vendido</h3>
+    </div>
+
+    <section class="products">
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1551232864-3f0890e580d9?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Zapatos formales">
+                </div>
+                <div class="product-info">
+                    <h4>Zapatos Oxford Negros</h4>
+                    <p>Zapatos formales de piel genuina con suela de cuero y plantilla acolchada.</p>
+                    <div class="product-price">
+                        <div class="price">$149.99</div>
+                        <button class="add-to-cart">Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge">10% OFF</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Reloj de lujo">
+                </div>
+                <div class="product-info">
+                    <h4>Reloj Automático Clásico</h4>
+                    <p>Reloj de pulsera automático con esfera minimalista y correa de cuero italiano.</p>
+                    <div class="product-price">
+                        <div class="price">$199.99 <span class="original-price">$219.99</span></div>
+                        <button class="add-to-cart">Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1520367445093-50dc08a59d9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Gafas de sol">
+                </div>
+                <div class="product-info">
+                    <h4>Gafas de Sol Aviador</h4>
+                    <p>Gafas de sol estilo aviador con lentes polarizadas y montura de acetato ligero.</p>
+                    <div class="product-price">
+                        <div class="price">$129.99</div>
+                        <button class="add-to-cart">Añadir</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-badge">Nuevo</div>
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1598033129183-c4f50c736f10?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Cinturón de cuero">
+                </div>
+                <div class="product-info">
+                    <h4>Cinturón de Cuero Marrón</h4>
+                    <p>Cinturón de cuero genuino con hebilla de acero inoxidable y terminación envejecida.</p>
+                    <div class="product-price">
+                        <div class="price">$49.99</div>
+                        <button class="add-to-cart">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h4>AlejoStore</h4>
+                <p>Ropa virtual de alta calidad para el hombre moderno que valora el estilo y la comodidad.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Comprar</h4>
+                <ul>
+                    <li><a href="#">Ropa</a></li>
+                    <li><a href="#">Accesorios</a></li>
+                    <li><a href="#">Novedades</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                    <li><a href="#">Colecciones</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Información</h4>
+                <ul>
+                    <li><a href="#">Sobre nosotros</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contacto</h4>
+                <ul>
+                    <li><a href="#">ayuda@alejostore.com</a></li>
+                    <li><a href="#">+573001534909</a></li>
+                    <li><a href="#">Disponible 24/7</a></li>
+                    <li><a href="#">Ubicaciones:Centro San Peruchito </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 AlejoStore. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Modal del carrito -->
+    <div class="overlay"></div>
+    <div class="cart-modal">
+        <div class="cart-header">
+            <h3>Tu Carrito</h3>
+            <button class="close-cart">&times;</button>
+        </div>
+        <div class="cart-items">
+            <!-- Los items del carrito se añadirán aquí dinámicamente -->
+        </div>
+        <div class="cart-total">
+            <span>Total:</span>
+            <span class="total-price">$0.00</span>
+        </div>
+        <button class="checkout-btn">Proceder al Pago</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables
+            const cartBtn = document.querySelector('.cart-btn');
+            const closeCartBtn = document.querySelector('.close-cart');
+            const overlay = document.querySelector('.overlay');
+            const cartModal = document.querySelector('.cart-modal');
+            const addToCartBtns = document.querySelectorAll('.add-to-cart');
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const cartCount = document.querySelector('.cart-count');
+            const totalPriceElement = document.querySelector('.total-price');
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            
+            let cart = [];
+            let totalPrice = 0;
+
+            // Event Listeners
+            cartBtn.addEventListener('click', toggleCart);
+            closeCartBtn.addEventListener('click', toggleCart);
+            overlay.addEventListener('click', toggleCart);
+            checkoutBtn.addEventListener('click', checkout);
+
+            // Añadir productos al carrito
+            addToCartBtns.forEach(btn => {
+                btn.addEventListener('click', addToCart);
+            });
+
+            // Funciones
+            function toggleCart() {
+                cartModal.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = cartModal.classList.contains('active') ? 'hidden' : 'auto';
+            }
+
+            function addToCart(e) {
+                const productCard = e.target.closest('.product-card');
+                const productName = productCard.querySelector('h4').textContent;
+                const productPrice = parseFloat(productCard.querySelector('.price').textContent.replace('$', ''));
+                const productImage = productCard.querySelector('img').src;
+                
+                // Verificar si el producto ya está en el carrito
+                const existingItem = cart.find(item => item.name === productName);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        name: productName,
+                        price: productPrice,
+                        image: productImage,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                showAddToCartAnimation(e.target);
+            }
+
+            function updateCart() {
+                // Limpiar el carrito
+                cartItemsContainer.innerHTML = '';
+                totalPrice = 0;
+                
+                // Actualizar items del carrito
+                cart.forEach(item => {
+                    totalPrice += item.price * item.quantity;
+                    
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.classList.add('cart-item');
+                    cartItemElement.innerHTML = `
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn minus">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                            <button class="remove-item">Eliminar</button>
+                        </div>
+                    `;
+                    
+                    cartItemsContainer.appendChild(cartItemElement);
+                    
+                    // Event listeners para los botones de cantidad y eliminar
+                    const minusBtn = cartItemElement.querySelector('.minus');
+                    const plusBtn = cartItemElement.querySelector('.plus');
+                    const removeBtn = cartItemElement.querySelector('.remove-item');
+                    
+                    minusBtn.addEventListener('click', () => {
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                            updateCart();
+                        }
+                    });
+                    
+                    plusBtn.addEventListener('click', () => {
+                        item.quantity += 1;
+                        updateCart();
+                    });
+                    
+                    removeBtn.addEventListener('click', () => {
+                        cart = cart.filter(cartItem => cartItem.name !== item.name);
+                        updateCart();
+                    });
+                });
+                
+                // Actualizar contador y precio total
+                cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+                totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+                
+                // Mostrar u ocultar botón de pago
+                checkoutBtn.style.display = cart.length > 0 ? 'block' : 'none';
+            }
+
+            function showAddToCartAnimation(button) {
+                button.textContent = '✓ Añadido';
+                button.style.backgroundColor = '#4CAF50';
+                
+                setTimeout(() => {
+                    button.textContent = 'Añadir';
+                    button.style.backgroundColor = 'transparent';
+                }, 2000);
+            }
+
+            function checkout() {
+                alert(`Gracias por tu compra! Total: $${totalPrice.toFixed(2)}`);
+                cart = [];
+                updateCart();
+                toggleCart();
+            }
+        });
+    </script>
+</body>
+<img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fG1lbidzJTIwd2F0Y2h8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Reloj automático clásico">
+</html><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlejoStore - Ropa Virtual Masculina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* [Mantén todos los estilos CSS anteriores igual] */
+        /* ... (todo el CSS que ya teníamos) ... */
+    </style>
+</head>
+<body>
+    <!-- [Mantén todo el HTML anterior igual hasta el script] -->
+    <!-- ... (todo el HTML que ya teníamos) ... -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables globales
+            const cartBtn = document.querySelector('.cart-btn');
+            const closeCartBtn = document.querySelector('.close-cart');
+            const overlay = document.querySelector('.overlay');
+            const cartModal = document.querySelector('.cart-modal');
+            const addToCartBtns = document.querySelectorAll('.add-to-cart');
+            const cartItemsContainer = document.querySelector('.cart-items');
+            const cartCount = document.querySelector('.cart-count');
+            const totalPriceElement = document.querySelector('.total-price');
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            const searchBtn = document.querySelector('.search-btn');
+            const userBtn = document.querySelector('.user-btn');
+            const navLinks = document.querySelectorAll('nav a');
+            const ctaButton = document.querySelector('.cta-button');
+            
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            let totalPrice = 0;
+
+            // Inicializar carrito
+            updateCart();
+
+            // Event Listeners
+            cartBtn.addEventListener('click', toggleCart);
+            closeCartBtn.addEventListener('click', toggleCart);
+            overlay.addEventListener('click', toggleCart);
+            checkoutBtn.addEventListener('click', checkout);
+            searchBtn.addEventListener('click', showSearch);
+            userBtn.addEventListener('click', showUserModal);
+            ctaButton.addEventListener('click', exploreCollection);
+
+            // Navegación suave
+            navLinks.forEach(link => {
+                link.addEventListener('click', smoothScroll);
+            });
+
+            // Añadir productos al carrito
+            addToCartBtns.forEach(btn => {
+                btn.addEventListener('click', addToCart);
+            });
+
+            // Funciones principales
+            function toggleCart() {
+                cartModal.classList.toggle('active');
+                overlay.classList.toggle('active');
+                document.body.style.overflow = cartModal.classList.contains('active') ? 'hidden' : 'auto';
+            }
+
+            function addToCart(e) {
+                const productCard = e.target.closest('.product-card');
+                const productId = productCard.dataset.id || generateId();
+                const productName = productCard.querySelector('h4').textContent;
+                const productPrice = parseFloat(productCard.querySelector('.price').textContent.replace('$', ''));
+                const productImage = productCard.querySelector('img').src;
+                const originalPrice = productCard.querySelector('.original-price')?.textContent.replace('$', '') || null;
+                
+                // Verificar si el producto ya está en el carrito
+                const existingItem = cart.find(item => item.id === productId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: productId,
+                        name: productName,
+                        price: productPrice,
+                        originalPrice: originalPrice,
+                        image: productImage,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                showAddToCartAnimation(e.target);
+                saveCartToLocalStorage();
+            }
+
+            function updateCart() {
+                // Limpiar el carrito
+                cartItemsContainer.innerHTML = '';
+                totalPrice = 0;
+                
+                if (cart.length === 0) {
+                    cartItemsContainer.innerHTML = '<p style="text-align: center; color: #b0b0b0;">Tu carrito está vacío</p>';
+                    cartCount.textContent = '0';
+                    totalPriceElement.textContent = '$0.00';
+                    checkoutBtn.style.display = 'none';
+                    return;
+                }
+                
+                // Actualizar items del carrito
+                cart.forEach(item => {
+                    totalPrice += item.price * item.quantity;
+                    
+                    const cartItemElement = document.createElement('div');
+                    cartItemElement.classList.add('cart-item');
+                    cartItemElement.innerHTML = `
+                        <div class="cart-item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="cart-item-details">
+                            <h4>${item.name}</h4>
+                            <div class="cart-item-price">
+                                $${item.price.toFixed(2)}
+                                ${item.originalPrice ? `<span class="original-price">$${item.originalPrice}</span>` : ''}
+                            </div>
+                            <div class="cart-item-quantity">
+                                <button class="quantity-btn minus">-</button>
+                                <span>${item.quantity}</span>
+                                <button class="quantity-btn plus">+</button>
+                            </div>
+                            <button class="remove-item">Eliminar</button>
+                        </div>
+                    `;
+                    
+                    cartItemsContainer.appendChild(cartItemElement);
+                    
+                    // Event listeners para los botones de cantidad y eliminar
+                    const minusBtn = cartItemElement.querySelector('.minus');
+                    const plusBtn = cartItemElement.querySelector('.plus');
+                    const removeBtn = cartItemElement.querySelector('.remove-item');
+                    
+                    minusBtn.addEventListener('click', () => {
+                        if (item.quantity > 1) {
+                            item.quantity -= 1;
+                            updateCart();
+                            saveCartToLocalStorage();
+                        }
+                    });
+                    
+                    plusBtn.addEventListener('click', () => {
+                        item.quantity += 1;
+                        updateCart();
+                        saveCartToLocalStorage();
+                    });
+                    
+                    removeBtn.addEventListener('click', () => {
+                        cart = cart.filter(cartItem => cartItem.id !== item.id);
+                        updateCart();
+                        saveCartToLocalStorage();
+                    });
+                });
+                
+                // Actualizar contador y precio total
+                cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+                totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+                
+                // Mostrar u ocultar botón de pago
+                checkoutBtn.style.display = 'block';
+            }
+
+            function showAddToCartAnimation(button) {
+                const originalText = button.textContent;
+                const originalBg = button.style.backgroundColor;
+                const originalBorder = button.style.borderColor;
+                
+                button.textContent = '✓ Añadido';
+                button.style.backgroundColor = '#4CAF50';
+                button.style.borderColor = '#4CAF50';
+                
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = originalBg;
+                    button.style.borderColor = originalBorder;
+                }, 2000);
+            }
+
+            function checkout() {
+                alert(`¡Gracias por tu compra!\nTotal: $${totalPrice.toFixed(2)}\n\nTu pedido #${Math.floor(Math.random() * 10000)} ha sido procesado.`);
+                cart = [];
+                updateCart();
+                saveCartToLocalStorage();
+                toggleCart();
+            }
+
+            function showSearch() {
+                const searchTerm = prompt('🔍 Buscar productos...');
+                if (searchTerm) {
+                    alert(`Buscando: "${searchTerm}"\n\n(Esta funcionalidad se conectaría a una base de datos en una versión completa)`);
+                }
+            }
+
+            function showUserModal() {
+                alert('🔐 Iniciar sesión / Registrarse\n\n(Esta funcionalidad se conectaría a un sistema de autenticación en una versión completa)');
+            }
+
+            function exploreCollection() {
+                // Desplazamiento suave a la sección de productos
+                document.querySelector('.products').scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+
+            function smoothScroll(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            }
+
+            function generateId() {
+                return Math.random().toString(36).substr(2, 9);
+            }
+
+            function saveCartToLocalStorage() {
+                localStorage.setItem('cart', JSON.stringify(cart));
+            }
+        });
+    </script>
+</body>
+</html><script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // ... (mantén todo el código anterior igual hasta las funciones) ...
+
+        // Navegación a secciones específicas
+        document.querySelector('nav a[href="#ropa"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.section-title h3:first-of-type').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        document.querySelector('nav a[href="#accesorios"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.querySelector('.section-title h3:last-of-type').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // ... (el resto de tu código JavaScript existente) ...
+    });
+</script><nav>
+    <ul>
+        <li><a href="#">Inicio</a></li>
+        <li><a href="#">Novedades</a></li>
+        <li><a href="#ropa">Ropa</a></li>
+        <li><a href="#accesorios">Accesorios</a></li>
+        <li><a href="#">Ofertas</a></li>
+    </ul>
+</nav><!-- En la sección de Novedades (que contiene ropa) -->
+<div class="section-title" id="ropa-section">
+    <h3>Novedades</h3>
+</div>
+
+<!-- En la sección de Lo más vendido (que contiene accesorios) -->
+<div class="section-title" id="accesorios-section">
+    <h3>Lo más vendido</h3>
+</div><!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlejoStore - Ropa Virtual Masculina</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* [Mantén todos los estilos CSS anteriores] */
+        .cart-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #d4af37;
+            color: #121212;
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            transform: translateX(150%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            font-weight: bold;
+        }
+        .cart-notification.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- [Mantén todo el HTML anterior] -->
+
+    <!-- Añade esta notificación flotante -->
+    <div class="cart-notification" id="cartNotification"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Variables del carrito
+            const cart = {
+                items: JSON.parse(localStorage.getItem('cart')) || [],
+                add(item) {
+                    const existingItem = this.items.find(i => i.id === item.id);
+                    if (existingItem) {
+                        existingItem.quantity += item.quantity;
+                    } else {
+                        this.items.push(item);
+                    }
+                    this.save();
+                    this.updateUI();
+                    showNotification(`${item.name} añadido al carrito`);
+                },
+                remove(id) {
+                    this.items = this.items.filter(item => item.id !== id);
+                    this.save();
+                    this.updateUI();
+                    showNotification('Producto eliminado');
+                },
+                updateQuantity(id, quantity) {
+                    const item = this.items.find(i => i.id === id);
+                    if (item) {
+                        item.quantity = quantity;
+                        this.save();
+                        this.updateUI();
+                    }
+                },
+                clear() {
+                    this.items = [];
+                    this.save();
+                    this.updateUI();
+                },
+                getTotal() {
+                    return this.items.reduce((total, item) => total + (item.price * item.quantity), 0);
+                },
+                getTotalItems() {
+                    return this.items.reduce((total, item) => total + item.quantity, 0);
+                },
+                save() {
+                    localStorage.setItem('cart', JSON.stringify(this.items));
+                },
+                updateUI() {
+                    // Actualizar contador del carrito
+                    document.querySelector('.cart-count').textContent = this.getTotalItems();
+                    
+                    // Actualizar lista de productos en el modal
+                    const cartItemsContainer = document.querySelector('.cart-items');
+                    cartItemsContainer.innerHTML = '';
+                    
+                    if (this.items.length === 0) {
+                        cartItemsContainer.innerHTML = '<p style="text-align: center; color: #b0b0b0;">Tu carrito está vacío</p>';
+                        document.querySelector('.total-price').textContent = '$0.00';
+                        document.querySelector('.checkout-btn').style.display = 'none';
+                        return;
+                    }
+                    
+                    this.items.forEach(item => {
+                        const cartItem = document.createElement('div');
+                        cartItem.className = 'cart-item';
+                        cartItem.innerHTML = `
+                            <div class="cart-item-image">
+                                <img src="${item.image}" alt="${item.name}">
+                            </div>
+                            <div class="cart-item-details">
+                                <h4>${item.name}</h4>
+                                <div class="cart-item-price">$${item.price.toFixed(2)}</div>
+                                <div class="cart-item-quantity">
+                                    <button class="quantity-btn minus" data-id="${item.id}">-</button>
+                                    <input type="number" value="${item.quantity}" min="1" class="quantity-input" data-id="${item.id}">
+                                    <button class="quantity-btn plus" data-id="${item.id}">+</button>
+                                </div>
+                                <button class="remove-item" data-id="${item.id}">Eliminar</button>
+                            </div>
+                        `;
+                        cartItemsContainer.appendChild(cartItem);
+                    });
+                    
+                    // Actualizar total
+                    document.querySelector('.total-price').textContent = `$${this.getTotal().toFixed(2)}`;
+                    document.querySelector('.checkout-btn').style.display = 'block';
+                }
+            };
+
+            // Notificación flotante
+            function showNotification(message) {
+                const notification = document.getElementById('cartNotification');
+                notification.textContent = message;
+                notification.classList.add('show');
+                
+                setTimeout(() => {
+                    notification.classList.remove('show');
+                }, 3000);
+            }
+
+            // Añadir productos al carrito
+            document.querySelectorAll('.add-to-cart').forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const product = {
+                        id: productCard.dataset.id || Date.now().toString(),
+                        name: productCard.querySelector('h4').textContent,
+                        price: parseFloat(productCard.querySelector('.price').textContent.replace('$', '')),
+                        image: productCard.querySelector('img').src,
+                        quantity: 1
+                    };
+                    
+                    cart.add(product);
+                    
+                    // Animación de añadido
+                    this.textContent = '✓ Añadido';
+                    this.style.backgroundColor = '#4CAF50';
+                    this.style.borderColor = '#4CAF50';
+                    
+                    setTimeout(() => {
+                        this.textContent = 'Añadir';
+                        this.style.backgroundColor = '';
+                        this.style.borderColor = '';
+                    }, 2000);
+                });
+            });
+
+            // Delegación de eventos para el carrito
+            document.querySelector('.cart-modal').addEventListener('click', function(e) {
+                const target = e.target;
+                
+                // Botón de eliminar
+                if (target.classList.contains('remove-item')) {
+                    cart.remove(target.dataset.id);
+                }
+                
+                // Botón de disminuir cantidad
+                if (target.classList.contains('minus')) {
+                    const item = cart.items.find(i => i.id === target.dataset.id);
+                    if (item && item.quantity > 1) {
+                        cart.updateQuantity(target.dataset.id, item.quantity - 1);
+                    }
+                }
+                
+                // Botón de aumentar cantidad
+                if (target.classList.contains('plus')) {
+                    const item = cart.items.find(i => i.id === target.dataset.id);
+                    if (item) {
+                        cart.updateQuantity(target.dataset.id, item.quantity + 1);
+                    }
+                }
+            });
+
+            // Input de cantidad
+            document.querySelector('.cart-modal').addEventListener('change', function(e) {
+                if (e.target.classList.contains('quantity-input')) {
+                    const quantity = parseInt(e.target.value);
+                    if (quantity > 0) {
+                        cart.updateQuantity(e.target.dataset.id, quantity);
+                    } else {
+                        e.target.value = 1;
+                    }
+                }
+            });
+
+            // Botón de checkout
+            document.querySelector('.checkout-btn').addEventListener('click', function() {
+                if (cart.items.length > 0) {
+                    alert(`¡Compra realizada!\nTotal: $${cart.getTotal().toFixed(2)}\n\nGracias por tu compra en AlejoStore.`);
+                    cart.clear();
+                    toggleCart();
+                }
+            });
+
+            // Inicializar carrito
+            cart.updateUI();
+
+            // [Mantén el resto de tus funciones existentes]
+        });
+
+        function toggleCart() {
+            const cartModal = document.querySelector('.cart-modal');
+            const overlay = document.querySelector('.overlay');
+            
+            cartModal.classList.toggle('active');
+            overlay.classList.toggle('active');
+            document.body.style.overflow = cartModal.classList.contains('active') ? 'hidden' : 'auto';
+            
+            // Actualizar carrito al abrir
+            if (cartModal.classList.contains('active')) {
+                cart.updateUI();
+            }
+        }
+    </script>
+</body>
+</html>
